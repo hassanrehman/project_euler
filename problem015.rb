@@ -15,8 +15,4 @@ So that's basically 4C2 .. or for 3x3 its 6C3
 moving on for a 20x20 that's 40C20 .. easy enug
 =end
 
-def nCr(n, r)
-  n.factorial / (r.factorial * (n-r).factorial)
-end
-
-puts nCr(40, 20)
+puts 40.C(20)

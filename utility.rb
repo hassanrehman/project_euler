@@ -18,4 +18,9 @@ class Fixnum
 
     (2..self).inject(&:*)
   end
+
+  #calculates nCr
+  def C(r)
+    factorial / (r.factorial * (self-r).factorial)
+  end
 end
