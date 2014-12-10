@@ -1,5 +1,4 @@
 require './utility.rb'
-require 'prime'
 
 n = 600851475143
 largest_prime = 2

@@ -1,4 +1,4 @@
-require 'prime'
+require "./utility.rb"
 
 class Amicable
 

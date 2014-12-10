@@ -1,3 +1,5 @@
+require 'prime'
+
 class Array
   def sum
     self.inject(&:+)
@@ -22,5 +24,16 @@ class Fixnum
   #calculates nCr
   def C(r)
     factorial / (r.factorial * (self-r).factorial)
+  end
+end
+
+class Time
+  def elapsed(options={})
+    default_options = {
+      round_digits: 2
+    }
+    options = default_options.merge(options)
+    elapsed = Time.now - self
+    elapsed.round(options[:round_digits])
   end
 end

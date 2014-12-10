@@ -1,4 +1,4 @@
-require 'prime'
+require "./utility.rb"
 
 #Euler discovered the remarkable quadratic formula:
 #n² + n + 41

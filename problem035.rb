@@ -1,4 +1,4 @@
-require 'prime'
+require './utility.rb'
 
 
 #The number, 197, is called a circular prime because all rotations of the digits: 197, 971, and 719, are themselves prime.
