@@ -53,7 +53,6 @@ class P031
 
   def value(indexes)
     sum = indexes.each_with_index.map{|v, i| COINS[i]*v }.sum
-    #puts "#{indexes.inspect} - #{sum}"
     return sum
   end
 
