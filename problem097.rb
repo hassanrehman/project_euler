@@ -11,5 +11,6 @@ Find the last ten digits of this prime number.
 =end
 
 #from http://stackoverflow.com/questions/14785329/efficient-way-to-power-and-mod-in-ruby
-require 'openssl'
-puts (28433 * 2.to_bn.mod_exp(7830457, 10**10) + 1).to_s[-10..-1]
+#require 'openssl'
+#puts (28433 * 2.to_bn.mod_exp(7830457, 10**10) + 1).to_s[-10..-1]
+puts (28433 * mod_pow(2, 7830457, 10**10) + 1).to_s[-10..-1]
