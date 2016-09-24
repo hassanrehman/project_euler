@@ -1,3 +1,4 @@
+
 class X
   attr_reader :r, :a, :b, :c, :n, :x
 
@@ -26,21 +27,15 @@ class X
     @x ||= X.new( c*r, a, (-1*c*(b - c*n)), (r*r*a - (b - c*n)*(b - c*n)) )
   end
 
-  def ==(y)
-    self.eql?(y)
-  end
-
   def eql?(y)
     [r, a, b, c] == [y.r, y.a, y.b, y.c]
   end
+  alias_method :==, :eql?
 
   def inspect
     "x = (#{r} * sq( #{a} ) + #{b}) / #{c}"
   end
-
-  def to_s
-    inspect
-  end
+  alias_method :to_s, :inspect
 
   def dup
     X.new(r, a, b, c)
