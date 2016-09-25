@@ -38,23 +38,14 @@ end
 
 def get_result(d)
   min, max = get_range(d)
-  n = max
 
-  iterations = 1
-  loop do  
+  #with tolerance = 1 .. there would be only one of these two candidates to be less than 3/7
 
-    curr = Rational(n, d)
-    prev = Rational(n-1, d)
+  #if max / d < 3 / 7 then max .. etc
+  return max if max * 7 < 3 * d
+  return min if min * 7 < 3 * d
+  return min - 1
 
-    break if curr > limit_fraction and prev < limit_fraction
-
-    break if n <= min  #sanity
-    n -= 1
-    iterations += 1
-    # puts "d: #{d}, diff: #{max - min}, iterations: #{iterations}"
-  end
-
-  return (n - 1)
 end
 
 curr = Rational(get_result(2), 2)
