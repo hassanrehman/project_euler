@@ -48,16 +48,24 @@ def get_result(d)
 
 end
 
-curr = Rational(get_result(2), 2)
+denominator = 2
+numerator = get_result(denominator)
+
 (3..1_000_000).each do |d|
   if d % 10_000 == 0
     puts d
   end
-  r = Rational(get_result(d), d)
-  if r > curr
-    curr = r
+
+  new_denominator = d
+  new_numerator = get_result(d)
+
+  #if new > old .. replace
+  if new_numerator * denominator > numerator * new_denominator
+    numerator = new_numerator
+    denominator = new_denominator
   end
+
 end
 
-puts curr
+puts "#{numerator}/#{denominator}"
 
