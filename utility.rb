@@ -1,6 +1,30 @@
 require 'prime'
 
 class Prime
+
+  #http://jasonwyatt.co/post/200734402/sieve-of-eratosthenes-in-ruby
+  #this is Eratosthenes in real .. but is must faster than ruby's class of the same name .. weird right
+  class MyGenerator
+    attr_accessor :upper_bound
+
+    def each
+      candidates = Array.new(@upper_bound, true)
+      candidates[0] = false
+      
+      candidates.each_with_index do |candidate, i|
+        if candidate then
+          yield(i+1)
+          (2*i+1).step(@upper_bound, i+1) do |index|
+            candidates[index] = false
+          end
+        end
+      end
+      return
+    end
+
+  end
+
+
   #http://www.codeproject.com/Articles/691200/Primality-test-algorithms-Prime-test-The-fastest-w
   #not reliable ..... different results in come cases
   def fermat_prime?(n, certainly_value=10)
