@@ -1,42 +1,75 @@
-#pentagonal number
-def g(k)
-  (k*(3*k - 1))/2
-end
+=begin
+List<int> p = new List<int>();
+p.Add(1);
+             
+int n = 1;            
+while(true){
+    int i = 0;
+    int penta = 1;
+    p.Add(0);
+ 
+    while (penta <= n){                    
+        int sign = (i % 4 > 1) ? -1 : 1;
+        p[n] += sign * p[n - penta];
+        p[n] %= 1000000;
+        i++;
+                  
+        int j = (i % 2 == 0) ? i / 2 + 1 : -(i / 2 + 1);
+        penta = j * (3 * j - 1) / 2;
+    } 
+                 
+    if (p[n] == 0) break;
+    n++;
+}
+=end
 
-#base number for generalized pentagonal numbers
-def k(m)
-  m%2 == 0 ? -1*(m/2) : (m+1)/2
-end
 
-def abs(n)
-  n < 0 ? -1*n : n
-end
+class P
+  def initialize
+    @ps = [1, 1, 2]
 
-#number of integer partitions
-$ps = [1, 1, 2]
-def p(n)
-  return $ps[n] unless $ps[n].nil?
-
-  m = 1
-  sum = 0.to_i
-  #tmp = []
-  loop do
-    gk = g(k(m))
-    break if gk > n
-    sum += (-1)**abs(k(m)-1) * ($ps[n]||p(n - gk))
-    sum %= 1000000   #keep it within required limits
-    m += 1    
+    # Pk = k(3k-1)/2 for k = 1, −1, 2, −2, 3,
+    pk = Enumerator.new do |r|
+        0.upto(Float::INFINITY) do |i|
+          k = ((i / 2) + 1) * (i%2 == 0 ? 1 : -1)
+          r << (k*(3*k - 1))/2
+        end
+      end
+    @pk = pk.first(100_000)
+    run!
   end
 
-  $ps[n] = sum
-  return sum
-end
+  #p(n) = p(n-k)
+  #  withs signs: ++--++--++--
+  def p(n)
+    (return @ps[n]) if @ps[n]
 
-n = 1000
-loop do
-  if p(n) % 1000000 == 0
+    sum = 0
+    @pk.each_with_index do |k, i|
+      if k > n
+        break
+      end
+      sign = ( i % 4 <= 1 ? 1 : -1)
+      sum += sign * p( n - k )
+      sum %= 1_000_000   #keep it under control
+    end
+    @ps[n] = sum
+    return sum
+  end
+
+  def run!
+    n = 1
+    loop do 
+      p_n = p(n)
+      # puts "n: #{n}, p_n: #{p_n}, #{@ps.length}"
+      break if p_n % 1_000_000 == 0
+      n += 1
+    end
     puts n
-    break
   end
-  n+=1
 end
+
+P.new
+
+
+
