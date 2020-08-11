@@ -181,6 +181,16 @@ class Array
       end
     end
   end
+
+  def join_to_i
+    arr = self
+    result = 0
+    arr.each_with_index do |a, i|
+      result += ( a * 10**(self.length - i - 1) )
+    end
+    result
+  end
+
 end
 
 class Fixnum
@@ -196,6 +206,17 @@ class Fixnum
   def C(r)
     factorial / (r.factorial * (self-r).factorial)
   end
+
+  def split
+    n = self
+    result = []
+    while n > 0
+      result << (n % 10)
+      n /= 10
+    end
+    result.reverse
+  end
+
 end
 
 class Numeric

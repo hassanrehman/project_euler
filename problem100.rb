@@ -1,3 +1,5 @@
+#https://www.alpertron.com.ar/QUAD.HTM
+#  2b*b - t*t - 2*b + n = 0
 def next_b(b, t)
   3*b + 2*t - 2
 end
@@ -15,8 +17,7 @@ limit = 10**12
 loop do
   puts "b: #{b}, t: #{t}, result: #{result(b, t)}"
   if t > limit
-    puts t
-    puts b
+    puts "FINAL: b: #{b}, t: #{t}, result: #{result(b, t)}"
     break
   end
   _b = next_b(b, t)
