@@ -16,46 +16,41 @@ def perpendicular(line1, line2)
   return abs(line1*line2 + 1) < THRESHOLD
 end
 
-def is_right_triangle(p1, p2)
-  p = [0, 0]
+def is_right_triangle(x1, y1, x2, y2)
+  #if coordinates are repeated
+  if (x1 == 0 and y1 == 0) or
+    (x2 == 0 and y2 == 0) or
+    (x1 == x2 and y1 == y2)
+    return false
+  end
 
-  #if both coordinates are exactly same, remove the sucker
-  return false if p1 == [0, 0] or p2 == [0, 0] or p1 == p2
-
-  pp1 = grad(*p, *p1)
-  pp2 = grad(*p, *p2)
-  p1p2 = grad(*p1, *p2)
+  pp1 = grad(0, 0, x1, y1)
+  pp2 = grad(0, 0, x2, y2)
+  p1p2 = grad(x1, y1, x2, y2)
 
   return (perpendicular(pp1, pp2) or perpendicular(pp1, p1p2) or perpendicular(pp2, p1p2))
-
 end
-
-p = [0, 0]
 
 count = 0
 LIMIT = 50
-$pairs = {}
 
 for x1 in (0..LIMIT)
+  puts "x1: #{x1}"
   for y1 in (0..LIMIT)
+    next if x1 == 0 and y1 == 0
+
     for x2 in (0..LIMIT)
+      next if x1 == 0 and x2 == 0
+
       for y2 in (0..LIMIT)
+        next if x1 == x2 and y1 == y2
 
-        p1 = [x1, y1]
-        p2 = [x2, y2]
-
-        # pair = [p1.join, p2.join].sort.join(",")
-        # next unless $pairs[pair].nil?
-        # $pairs[pair] = true
-
-
-        yes = is_right_triangle(p1, p2)
-        #puts "#{p1.inspect}, #{p2.inspect}, tripple?: #{yes}"
+        yes = is_right_triangle(x1, y1, x2, y2)
+        # puts "(#{x1},#{y1}) - (#{x2},#{y2})#{yes ? "  ---  YES" : ""}"
         count += 1 if yes
-
       end
     end
   end
 end
 
-puts count/2
+puts count / 2
