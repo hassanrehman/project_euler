@@ -24,13 +24,16 @@ end
 
 def get_sums(start_num, end_num, number_max, number_min)
   num = start_num
+
+  # number of times the sum goes up to that much
   sums = Hash.new{|h, k| h[k] = 0 }
   loop do 
   	int_arr = num.split
   	sum = int_arr.sum
   	sums[sum] += 1
-  	num = next_num(int_arr, number_max, number_min)
+    # puts "num: #{num} - #{int_arr.inspect} = #{sum}"
   	break if num == end_num
+  	num = next_num(int_arr, number_max, number_min)
   end
   sums
 end
@@ -44,6 +47,7 @@ start_time = Time.now
 puts "starting colins:"
 colins_sums = get_sums(111111, 666666, 6, 1)
 puts "time: #{Time.now - start_time} seconds"
+# puts colins_sums.to_a.sort_by(&:first).inspect
 
 pete_wins = 0
 petes_sums.each do |p_sum, p_count|
