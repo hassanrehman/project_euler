@@ -61,6 +61,8 @@ class Amicable
       end
     end
   end
-
 end
+
 Amicable.new.process
+
+
